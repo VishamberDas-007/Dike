@@ -1,0 +1,15 @@
+{
+	"mysql": {
+		"username": "root",
+		"host": "localhost",
+		"password": "",
+		"database": "test",
+		"port": 7777,
+		"dialect": "mysql"
+	},
+	"jwt": {
+		"secret": "EveryThingIsVisible",
+		"expiresIn": "24h",
+		"algorithm": "HS256"
+	}
+}

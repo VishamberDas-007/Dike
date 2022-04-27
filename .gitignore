@@ -1,0 +1,5 @@
+# ignoring all the files and folder present in node modules
+node_modules/
+# igmoring package.json and package-lock.json files
+package-lock.json
+package.json
