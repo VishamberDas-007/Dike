@@ -15,4 +15,18 @@ routes.delete("/delete/:id", async (req, res) => {
 	return res.status(result.status).json(result);
 });
 
+// category edit route
+routes.get("/edit/:id", async (req, res) => {
+	let result = await category.edit(req);
+	console.log({ result: result });
+	return res.status(result.status).json(result);
+});
+
+// category update route
+routes.get("/update/:id", async (req, res) => {
+	let result = await category.update(req);
+	console.log({ result: result });
+	return res.status(result.status).json(result);
+});
+
 module.exports = routes;
