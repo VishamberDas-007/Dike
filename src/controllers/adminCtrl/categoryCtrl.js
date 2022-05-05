@@ -54,6 +54,55 @@ exports.delete = async (req) => {
 			categoryExist
 		);
 	} catch (error) {
-		return response.errorResponse("Error occurred while deleting category");
+		return response.errorResponse(
+			"Error occurred while deleting category",
+			error
+		);
+	}
+};
+
+// to edit category
+exports.edit = async (req) => {
+	try {
+		const catID = req.params.id;
+		console.log({ catID: catID });
+		const whereClause = { id: catID };
+		// check if the category exists
+		const categoryExist = await db.category.findOne({
+			where: whereClause,
+		});
+		// if category does not exist
+		if (!categoryExist) return response.notFound("Category not found");
+
+		return response.successResponse(
+			"Catefory editted successfully",
+			categoryExist
+		);
+	} catch (error) {
+		return response.errorResponse(
+			"Error occurred while editing category",
+			error
+		);
+	}
+};
+
+// to update category
+exports.update = async (req) => {
+	try {
+		const catID = req.params.id;
+		// const
+		const whereClause = { id: catID };
+		// check if the category exists
+		const categoryExist = await db.category.findOne({
+			where: whereClause,
+		});
+		// if category does not exist
+		if (!categoryExist) return response.notFound("Category not found");
+		await db.category.update({});
+	} catch (error) {
+		return response.errorResponse(
+			"Error occurred while updating category",
+			error
+		);
 	}
 };
