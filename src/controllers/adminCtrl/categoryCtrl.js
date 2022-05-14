@@ -1,5 +1,6 @@
 const response = require("../../responses/response");
 const db = require("../../models/index");
+const sequelize = require("sequelize");
 
 // to insert new category
 exports.insert = async (req) => {
@@ -90,7 +91,7 @@ exports.edit = async (req) => {
 exports.update = async (req) => {
 	try {
 		const catID = req.params.id;
-		// const
+		const catName = req.body.name;
 		const whereClause = { id: catID };
 		// check if the category exists
 		const categoryExist = await db.category.findOne({
@@ -98,7 +99,24 @@ exports.update = async (req) => {
 		});
 		// if category does not exist
 		if (!categoryExist) return response.notFound("Category not found");
-		await db.category.update({});
+		// if the category name is already present in database
+		const categoryNameExist = await db.category.findOne({
+			where: {
+				id: {
+					[sequelize.Op.not]: catID,
+				},
+				name: catName,
+			},
+		});
+		if (categoryNameExist)
+			return response.alreadyExists("Category Name already exists");
+		await categoryExist.update({
+			name: catName,
+		});
+		return response.successResponse(
+			"Category updated successully",
+			categoryExist
+		);
 	} catch (error) {
 		return response.errorResponse(
 			"Error occurred while updating category",
