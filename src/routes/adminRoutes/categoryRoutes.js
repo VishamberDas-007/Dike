@@ -23,7 +23,7 @@ routes.get("/edit/:id", async (req, res) => {
 });
 
 // category update route
-routes.get("/update/:id", async (req, res) => {
+routes.put("/update/:id", async (req, res) => {
 	let result = await category.update(req);
 	console.log({ result: result });
 	return res.status(result.status).json(result);
