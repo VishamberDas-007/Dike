@@ -3,3 +3,5 @@ node_modules/
 # igmoring package.json and package-lock.json files
 package-lock.json
 package.json
+#ignoring the uploaded files
+uploads/
