@@ -35,3 +35,22 @@ exports.insert = async (req, fileName) => {
 		response.errorResponse("Error occurred while inserting product", error);
 	}
 };
+
+// to edit product
+exports.edit = async (req) => {
+	try {
+		const id = req.params.id;
+		// check if the product already exists
+		const productExists = await productModel.findOne({
+			where: {
+				id: id,
+			},
+		});
+		// if product exits then return
+		if (productExists) {
+			return response.successResponse("Product found", productExists);
+		} else return response.notFound("Product not found");
+	} catch (error) {
+		response.errorResponse("Error occurred while editing product", error);
+	}
+};
