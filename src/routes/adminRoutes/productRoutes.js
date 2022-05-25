@@ -46,4 +46,8 @@ routes.post("/insert", upload.array("file", 5), async (req, res) => {
 	return res.status(result.status).json(result);
 });
 
+routes.get("/edit/:id", async (req, res) => {
+	let result = await product.edit(req);
+	return res.status(result.status).json(result);
+});
 module.exports = routes;
