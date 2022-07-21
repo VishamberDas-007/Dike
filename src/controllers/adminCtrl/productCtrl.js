@@ -54,3 +54,33 @@ exports.edit = async (req) => {
 		response.errorResponse("Error occurred while editing product", error);
 	}
 };
+
+// to update product
+exports.update = async (req) => {
+	try {
+		const id = req.params.id;
+		const whereClause = {
+			id: id,
+		};
+		const user = {
+			name: req.body.name,
+			description: req.body.description,
+			// imageName:req.body.imageName,
+		};
+		// check if the product already exists
+		const productExists = await productModel.findOne({
+			where: whereClause,
+		});
+
+		if (productExists) {
+			await productExists.update({ user });
+		} else return response.notFound("Product not found");
+
+		return response.successResponse(
+			"Product updated successfully",
+			productExists
+		);
+	} catch (error) {
+		response.errorResponse("Error occurred while updating product", error);
+	}
+};

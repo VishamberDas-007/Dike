@@ -50,4 +50,11 @@ routes.get("/edit/:id", async (req, res) => {
 	let result = await product.edit(req);
 	return res.status(result.status).json(result);
 });
+
+routes.put("/update/:id", async (req, res) => {
+	let result = await product.update(req);
+	console.log(result);
+	return res.status(result.status).json(result);
+});
+
 module.exports = routes;
